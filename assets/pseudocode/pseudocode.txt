@@ -1,0 +1,9 @@
+Using : Bootstrap / Jquery / OpenWeather API / 
+
+- HTML
+1. Two main columns - Search for a City part / Display Weather
+2. There are two rows in the each column. 
+  - Serch For a City , cities / Display the city, 5-Day forecast.
+
+- CSS
+1. 
