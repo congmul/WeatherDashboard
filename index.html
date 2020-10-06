@@ -25,36 +25,41 @@
     <div class="row titleLine">
         <h1>Weather Dashboard</h1>
     </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="leftContainer">
-                <div class="row m-0">
-                    <h4>Search for a City:</h4>
-                </div>
-                <div class="row m-0 mb-3">
-                    <input type="search" class="form-control ds-input" id="searchInput"
-                        placeholder="Enter a city"><button type="button" class="btn btn-primary" id="searchBtn"><i
-                            class="fas fa-search"></i></button></input>
-                </div>
-                <div id="citiesBtn">
-                </div>
-            </div>
+    <!-- <div class="row"> -->
+    <!-- <div class="col-4"> -->
+    <div class="leftContainer">
+        <div class="row m-0">
+            <h4>Search for a City:</h4>
         </div>
-
-        <div class="col-8">
-            <div class="upLeftBox">
-                <h3 id="cityName"></h3>
-                <!--CityName, Date, WeatherIcon-->
-                <p>Temperature: <span id="temperature"></span></p>
-                <p>Humidity: <span id="humidity"></span></p>
-                <p>Wind Speed: <span id="windspeed"></span></p>
-                <p>UV Index: <span id="uv"></span></p>
-            </div>
-            <div class="downLeftBox">
-                <h4>5-Day Forecast:</h4>
-            </div>
+        <div class="row m-0 mb-3">
+            <input type="search" class="form-control ds-input" id="searchInput" placeholder="Enter a city"><button
+                type="button" class="btn btn-primary" id="searchBtn"><i class="fas fa-search"></i></button></input>
+        </div>
+        <div id="citiesBtn">
         </div>
     </div>
+    <!-- </div> -->
+
+    <!-- <div class="col-8"> -->
+    <div class="rightBox">
+        <div class="upRightBox">
+            <div class="row ml-0 mb-3">
+                <h3 id="cityName"></h3>
+                <span id="currentTime"></span>
+                <img height="35" id="weatherIcon">
+            </div>
+            <!--CityName, Date, WeatherIcon-->
+            <p>Temperature: <span id="temperature"></span></p>
+            <p>Humidity: <span id="humidity"></span></p>
+            <p>Wind Speed: <span id="windspeed"></span></p>
+            <p>UV Index: <span id="uv"></span></p>
+        </div>
+        <div class="downRightBox">
+            <h4>5-Day Forecast:</h4>
+        </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
 
 
 
