@@ -119,7 +119,7 @@ $(document).ready(function () {
                 var apiKey = "55b9b01153577ab02bdcfe93626df0e5";
                 var lat = response.coord.lat;
                 var lon = response.coord.lon;
-                var uvURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+                var uvURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
                 var uvEl = $("#uv");
                 uvEl.css({"color": "white", "background": "red", "padding": "5px", "border-radius":"3px"});
 
