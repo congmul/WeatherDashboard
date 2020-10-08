@@ -10,6 +10,8 @@
     background-color: rgb(97, 97, 97);
 }
 
+
+
 .leftContainer{
     float: left;
     width: 30%;
@@ -21,17 +23,21 @@
 .form-control{
     width: 70%;
 }
+
 .cities{
     width: 100%;
     height: 45px;
     color: rgb(110, 110, 110);
-    border: 1px solid lightgray;
-    /* border-top: 1px solid lightgray;
+    border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
-    border-left: 1px solid lightgray; */
+    border-left: 1px solid lightgray;
     border-radius: 0;
     background-color: white;
     text-align: left;
+}
+
+.cities:last-child{
+    border-bottom: 1px solid lightgray;
 }
 
 .rightBox{
@@ -45,7 +51,8 @@
     width: 100%;
     height: 80%;
     border: 1px solid lightgray; 
-    padding: 20px;
+    /* background-color: black; */
+    padding: 10px 20px 20px 20px;
     color: rgb(110, 110, 110);
 }
 
@@ -53,4 +60,24 @@
     margin: 20px 5px 5px 5px;
     width: 100%;
     height: 80%;
+}
+#fiveDayForecast{
+    margin: 0;
+}
+
+#fiveDayForecast :last-child{
+    margin-right: 0px;
+}
+
+.card{
+    margin-right: 30px;
+    margin-bottom: 10px;
+    padding: 10px 20px 10px 10px;
+    width: 17%;
+    color: white
+}
+
+.weatherIconClass{
+    width: 55px;
+    margin: 10px;
 }
