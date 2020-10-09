@@ -46,14 +46,14 @@ $(document).ready(function () {
         localStorage.setItem("lastClick", indexLastClick);
 
         // Push city name to LocalStorage
-            localStorage.setItem(localStorage.length, cityNameReset);
-            cities.push(cityNameReset);
+        localStorage.setItem(localStorage.length, cityNameReset);
+        cities.push(cityNameReset);
 
-            // Run CreateButton Function
-            createButton(cities);
+        // Run CreateButton Function
+        createButton(cities);
 
-            // Display Weather
-            displayWeather(cities[cities.length - 1]);
+        // Display Weather
+        displayWeather(cities[cities.length - 1]);
     })
 
     function createButton(arrCities) {
@@ -201,23 +201,22 @@ $(document).ready(function () {
             displayFivedays();
         });
     }
+    // City Button Clicking Function
+    $("#citiesBtn").on("click", "button", function (e) {
+        e.preventDefault();
+        var CityName = $(this).attr("city-name");
 
-         // City Button Clicking Function
-         $("#citiesBtn button").on("click", function (e) {
-            e.preventDefault();
-            var CityName = $(this).attr("city-name");
-    
-            for (let i = 0; i < localStorage.length; i++) {
-                var key = localStorage.key(i);
-                var value = localStorage.getItem(key);
-                if (value === CityName) {
-                    localStorage.setItem("lastClick", (parseInt(key) - 1));
-                }
+        for (let i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            if (value === CityName) {
+                localStorage.setItem("lastClick", (parseInt(key) - 1));
             }
-            indexLastClick = localStorage.getItem("lastClick");
-    
-            displayWeather(CityName);
-        });
+        }
+        indexLastClick = localStorage.getItem("lastClick");
+
+        displayWeather(CityName);
+    });
 
 
 });
