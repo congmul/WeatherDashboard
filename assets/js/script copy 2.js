@@ -13,11 +13,14 @@ $(document).ready(function () {
         console.log("index: " + index);
 
         let value = localStorage.getItem(localStorage.key(i));
+        // console.log("initial index :" + index);
+        // console.log("initial value :" + value);
         if (index === "lastClick") {
             indexLastClick = value;
         } else {
             console.log("Else: " + value)
             cities.splice(index - 1, 0, value);
+            // console.log(cities);
         }
     }
 
@@ -26,11 +29,15 @@ $(document).ready(function () {
     if (cities.length === 0) {
         // alert("Enter a city where you want to know weather");
     } else {
+        // console.log("LastIndex: " + indexLastClick);
+        // console.log(cities);
         displayWeather(cities[indexLastClick]);
         createButton(cities);
     }
 
     searchBtnEl.on("click", function () {
+        // e.preventDefault();
+        // indexLastClick = localStorage.getItem("lastClick");
         var cityName = $("#searchInput").val().trim();
 
         // City Name - Change First letter into Uppercase, the rest into Lowercase.
@@ -42,10 +49,13 @@ $(document).ready(function () {
                 cityNameReset += cityName[i].toLowerCase();
             }
         }
+        // console.log(cityNameReset);
+        // console.log(cities);
         indexLastClick = cities.length;
         localStorage.setItem("lastClick", indexLastClick);
 
         // Push city name to LocalStorage
+        // if (cities.length === 0){
             localStorage.setItem(localStorage.length, cityNameReset);
             cities.push(cityNameReset);
 
@@ -53,7 +63,33 @@ $(document).ready(function () {
             createButton(cities);
 
             // Display Weather
+            // console.log(cities[cities.length - 1]);
             displayWeather(cities[cities.length - 1]);
+
+        // } else {
+        //     console.log(cities[cities.length - 1]);
+        //     // console.log("cityNameReset : " + cityNameReset);
+        //     var count = cities.length;
+        //     for (i = 0; i < count; i++) {
+        //         console.log("Forloop: " + cities[i]);
+        //         if (cities[i] === cityNameReset) {
+        //             console.log("samecity : " + cityNameReset);
+        //             return;
+        //         } else {
+        //             console.log("cityNameReset : " + cityNameReset);
+        //             localStorage.setItem(localStorage.length, cityNameReset);
+        //             cities.push(cityNameReset);
+        //             // Run CreateButton Function
+        //             createButton(cities);
+// 
+        //             // Display Weather
+        //             // console.log(cities[cities.length - 1]);
+        //             displayWeather(cities[cities.length - 1]);
+        //         }
+        //     }
+        // }
+
+
     })
 
     function createButton(arrCities) {
@@ -89,6 +125,7 @@ $(document).ready(function () {
         }).then(function (response) {
             // Weather Icon
             var iconNum = response.weather[0].icon;
+            // var iconURL = "http://openweathermap.org/img/wn/" + iconNum + "@2x.png";
             var iconURL = "http://openweathermap.org/img/w/" + iconNum + ".png";
 
             // Convert Unit (Temp Kevin to F, Wind m/s to MPH)
@@ -96,6 +133,8 @@ $(document).ready(function () {
             var windSpeedMPH = response.wind.speed * 2.237;
             var currentDate = new Date(response.dt * 1000);
             var currentDateFormat = currentDate.toLocaleString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+
+            // console.log(response);
 
             // Top right Box
             cityNameEl.text(cityName);
@@ -146,6 +185,8 @@ $(document).ready(function () {
                 var apiKey = "55b9b01153577ab02bdcfe93626df0e5";
                 var lat = response.coord.lat;
                 var lon = response.coord.lon;
+                // console.log("lat : " + response.coord.lat);
+                // console.log("lon : " + response.coord.lon);
                 var FiveDaysURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=hourly,minutely&units=imperial&appid=" + apiKey;
                 var fiveDayForecastEl = $("#fiveDayForecast");
                 fiveDayForecastEl.empty();
@@ -159,7 +200,7 @@ $(document).ready(function () {
                     var iconFiveDaysURL;
 
                     // Get 7days data
-                    for (let i = 1; i < 6; i++) {
+                    for (let i = 0; i < 5; i++) {
                         var divEl = $("<div>");
                         var h5El = $("<h5>");
                         var imgEl = $("<img>");
@@ -193,6 +234,7 @@ $(document).ready(function () {
                         divEl.append(pHumidityEl);
 
                         fiveDayForecastEl.append(divEl);
+
                     }
                 });
             }
@@ -200,21 +242,30 @@ $(document).ready(function () {
             displayUV();
             displayFivedays();
         });
+       
+
     }
 
          // City Button Clicking Function
          $("#citiesBtn button").on("click", function (e) {
             e.preventDefault();
+            console.log(this);
             var CityName = $(this).attr("city-name");
+            // console.log(CityName);
     
             for (let i = 0; i < localStorage.length; i++) {
                 var key = localStorage.key(i);
                 var value = localStorage.getItem(key);
+                // console.log(key);
                 if (value === CityName) {
                     localStorage.setItem("lastClick", (parseInt(key) - 1));
                 }
             }
             indexLastClick = localStorage.getItem("lastClick");
+    
+            // console.log("Last Click in Local : " + localStorage.getItem("lastClick"));
+            // console.log("Last Click in Var : " + indexLastClick);
+            // console.log(cities);
     
             displayWeather(CityName);
         });
