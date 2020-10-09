@@ -59,11 +59,20 @@ $(document).ready(function () {
     function createButton(arrCities) {
         citiesBtnEl.empty();
 
+        // <span class="close">x</span>
+
         arrCities.forEach(function (data) {
             var buttonEl = $("<button>");
+            var spanEl = $("<span>");
+
+            spanEl.addClass("close");
             buttonEl.addClass("btn cities");
             buttonEl.attr("city-name", data);
+
+            spanEl.text("x");
             buttonEl.text(data);
+
+            buttonEl.append(spanEl);
             citiesBtnEl.prepend(buttonEl);
         })
     }
