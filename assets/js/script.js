@@ -12,6 +12,7 @@ $(document).ready(function () {
     var checkNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     // localStorage.clear();
 
+    // Take cities from localStrage to citiesObjects
     if (localStorage.length > 0) {
         var localStorageArray = new Array();
         for (let i = 0; i < localStorage.length; i++) {
@@ -24,55 +25,37 @@ $(document).ready(function () {
                 citiesObjects["lastClick"] = sortedArray[i].slice(9, sortedArray[i].length);
             } else if (sortedArray[i].slice(0, 13) === "isCityRemoved") {
                 citiesObjects["isCityRemoved"] = sortedArray[i].slice(12, sortedArray[i].length);
-            } else if (sortedArray[i].slice(0, 19) === "countRemovingCities"){
+            } else if (sortedArray[i].slice(0, 19) === "countRemovingCities") {
                 citiesObjects["countRemovingCities"] = sortedArray[i].slice(19, sortedArray[i].length);
             }
             else {
-                if(checkNum.indexOf(sortedArray[i][1]) > -1){
-                    citiesObjects[sortedArray[i].slice(0,2)] = sortedArray[i].slice(2, sortedArray[i].length);
-                }else{
+                if (checkNum.indexOf(sortedArray[i][1]) > -1) {
+                    citiesObjects[sortedArray[i].slice(0, 2)] = sortedArray[i].slice(2, sortedArray[i].length);
+                } else {
                     citiesObjects[sortedArray[i][0]] = sortedArray[i].slice(1, sortedArray[i].length);
                 }
             }
         }
-
         // console.log("citiesObjects " + JSON.stringify(citiesObjects));
     }
 
+    // Push cities to cities Array
     for (keys in citiesObjects) {
-        // console.log("keys: " + keys);
         let value = citiesObjects[keys];
-        // console.log("value of Objects: " + value);
         if (keys === "lastClick") {
             indexLastClick = value;
         } else if (keys === "isCityRemoved") {
             isCityRemoved = value;
-        } else if(keys === "countRemovingCities"){
+        } else if (keys === "countRemovingCities") {
             countRemovingCities = value;
-        }else {
-            // console.log("Else: " + value)
+        } else {
             cities.push(value);
-            // cities.splice(keys - 1, 0, value);
         }
     }
 
-    // Push city name to cities array from LocalStorage
-    // for (var i = 0; i < localStorage.length; i++) {
-    //     let index = localStorage.key(i);
-    //     // console.log("index: " + index);
-
-    //     let value = localStorage.getItem(localStorage.key(i));
-    //     if (index === "lastClick") {
-    //         indexLastClick = value;
-    //     } else if (index === "isCityRemoved") {
-    //         countRemovingCities = value;
-    //     } else {
-    //         // console.log("Else: " + value)
-    //         cities.splice(index - 1, 0, value);
-    //     }
-    // }
-
+    // Check Initial Cities in cities Array.
     console.log("initial cities : " + cities);
+
     // Initial implement
     if (cities.length === 0) {
         // alert("Enter a city where you want to know weather");
@@ -81,6 +64,7 @@ $(document).ready(function () {
         createButton(cities);
     }
 
+    // Search cities
     searchBtnEl.on("click", function () {
         var cityName = $("#searchInput").val().trim();
 
@@ -95,69 +79,28 @@ $(document).ready(function () {
         }
 
         // Check cities repeated
-        if(cities.indexOf(cityNameReset) > -1){
+        if (cities.indexOf(cityNameReset) > -1) {
             console.log("Repeated City!!")
             alert("You alread have " + cityNameReset + " button");
             return;
         }
 
-
+        // Save Last clicked city's Index
         indexLastClick = cities.length;
-        
 
         // Push city name to LocalStorage
-        console.log("Push city name: "+ localStorage.getItem("isCityRemoved"));
-        
-        if(localStorage.length === 0){
+        if (localStorage.length === 0) {
             localStorage.setItem("lastClick", indexLastClick);
             localStorage.setItem("isCityRemoved", "false");
             localStorage.setItem((parseInt(localStorage.length)), cityNameReset);
             localStorage.setItem("countRemovingCities", 0);
-            console.log("length: 0");
-        }else{
+        } else {
             localStorage.setItem("lastClick", indexLastClick);
             localStorage.setItem("isCityRemoved", "false");
             localStorage.setItem((parseInt(localStorage.length) + parseInt(countRemovingCities)), cityNameReset);
         }
-        // else{
-        //     localStorage.setItem("lastClick", indexLastClick);
-        //     localStorage.setItem("isCityRemoved", "false");
-        //     localStorage.setItem((parseInt(localStorage.length)), cityNameReset);
-        //     localStorage.setItem("countRemovingCities", 0);
-        //     console.log("isCityRemoved: false");
-        // }
 
-
-        // if(localStorage.length === 0 || localStorage.getItem("isCityRemoved") === "false"){
-        //     localStorage.setItem("lastClick", indexLastClick);
-        //     localStorage.setItem("isCityRemoved", "false");
-        //     localStorage.setItem((parseInt(localStorage.length)), cityNameReset);
-        //     localStorage.setItem("countRemovingCities", 0);
-        //     console.log("length: 0");
-        // }else if(localStorage.getItem("isCityRemoved") === "true"){
-        //     localStorage.setItem("lastClick", indexLastClick);
-        //     localStorage.setItem("isCityRemoved", "false");
-        //     localStorage.setItem((parseInt(localStorage.length) + parseInt(countRemovingCities)), cityNameReset);
-        //     localStorage.setItem("countRemovingCities", 0);
-        //     countRemovingCities = 0;
-        //     console.log("isCityRemoved: true");
-        // }else{
-        //     localStorage.setItem("lastClick", indexLastClick);
-        //     localStorage.setItem("isCityRemoved", "false");
-        //     localStorage.setItem((parseInt(localStorage.length)), cityNameReset);
-        //     localStorage.setItem("countRemovingCities", 0);
-        //     console.log("isCityRemoved: false");
-        // }
-       
-        
-
-        // // Push city name to LocalStorage
-        // if(localStorage.getItem("isCityRemoved")){
-        //     localStorage.setItem((parseInt(localStorage.length) + 1), cityNameReset);
-        // }else{
-        //     localStorage.setItem((parseInt(localStorage.length)), cityNameReset);
-        // }
-        
+        // Push cityName to cities Array
         cities.push(cityNameReset);
 
         // Run CreateButton Function
@@ -165,8 +108,10 @@ $(document).ready(function () {
 
         // Display Weather
         displayWeather(cities[cities.length - 1]);
-    })
+    });
 
+
+    // Create City Button on the left
     function createButton(arrCities) {
         citiesBtnEl.empty();
 
@@ -183,7 +128,7 @@ $(document).ready(function () {
 
             buttonEl.append(spanEl);
             citiesBtnEl.prepend(buttonEl);
-        })
+        });
     }
 
     // Display Weather
@@ -314,7 +259,6 @@ $(document).ready(function () {
                     }
                 });
             }
-
             displayUV();
             displayFivedays();
         });
@@ -325,45 +269,20 @@ $(document).ready(function () {
         e.preventDefault();
 
         var CityName = $(this).attr("city-name");
-        for (let i = 0; i < cities.length; i++){
-            if(cities[i] === CityName){
+        for (let i = 0; i < cities.length; i++) {
+            if (cities[i] === CityName) {
                 localStorage.setItem("lastClick", i);
             }
         }
-
-        // for (let i = 0; i < localStorage.length; i++) {
-        //     var key = localStorage.key(i);
-        //     var value = localStorage.getItem(key);
-        //     if (value === CityName) {
-        //         localStorage.setItem("lastClick", (parseInt(key) - 2));
-        //     }
-        // }
         indexLastClick = localStorage.getItem("lastClick");
 
         displayWeather(CityName);
     });
 
-    // // City Button Clicking Function
-    // $("#citiesBtn").on("click", "button", function (e) {
-    //     e.preventDefault();
-    //     // console.log(this.children[0]);
-    //     var CityName = $(this).attr("city-name");
-
-    //     for (let i = 0; i < localStorage.length; i++) {
-    //         var key = localStorage.key(i);
-    //         var value = localStorage.getItem(key);
-    //         if (value === CityName) {
-    //             localStorage.setItem("lastClick", (parseInt(key) - 2));
-    //         }
-    //     }
-    //     indexLastClick = localStorage.getItem("lastClick");
-
-    //     displayWeather(CityName);
-    // });
-
+    // Function for Close button
     $("#citiesBtn").on("click", "button .close", function (e) {
         e.preventDefault();
-        // console.log($(this).parent());
+
         console.log($(this).parent().attr("city-name"));
         console.log(cities);
 
@@ -371,16 +290,15 @@ $(document).ready(function () {
         for (let i = 0; i < localStorage.length; i++) {
             let keyName = localStorage.key(i);
             if (removeCityName === localStorage.getItem(keyName)) {
-                // console.log("Before remove : " + cities);
                 localStorage.removeItem(keyName);
+
                 let index = cities.indexOf(removeCityName);
-                // console.log("index to remove: " + index);
                 cities.splice(index, 1);
-                // console.log("After remove :" + cities);
                 removeCityName = "";
+
                 countRemovingCities = parseInt(countRemovingCities) + 1;
-                console.log("countRemovingCities" + countRemovingCities);
-                indexLastClick = 1;
+                
+                localStorage.setItem("lastClick", 0);
                 localStorage.setItem("isCityRemoved", "true");
                 localStorage.setItem("countRemovingCities", countRemovingCities);
             }
@@ -388,10 +306,9 @@ $(document).ready(function () {
         $(this).parent().css("display", "none");
     })
 
-    $(".resetBtn").on("click", function(e){
+    $(".resetBtn").on("click", function (e) {
         e.preventDefault();
         localStorage.clear();
         $("#citiesBtn").css("display", "none");
     })
-
 });
