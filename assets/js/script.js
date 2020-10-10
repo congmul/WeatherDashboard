@@ -309,6 +309,8 @@ $(document).ready(function () {
     $(".resetBtn").on("click", function (e) {
         e.preventDefault();
         localStorage.clear();
-        $("#citiesBtn").css("display", "none");
+        cities = [];
+        console.log("cities" + cities);
+        $("#citiesBtn").text("");
     })
 });
