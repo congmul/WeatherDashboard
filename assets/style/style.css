@@ -10,7 +10,14 @@
     background-color: rgb(97, 97, 97);
 }
 
-
+.resetBtn{
+    color:  rgb(97, 97, 97);
+    font-size: 14px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+.resetBtn:hover {background: white;}
 
 .leftContainer{
     float: left;

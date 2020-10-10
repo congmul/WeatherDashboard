@@ -389,7 +389,12 @@ $(document).ready(function () {
             }
         }
         $(this).parent().css("display", "none");
+    })
 
+    $(".resetBtn").on("click", function(e){
+        e.preventDefault();
+        localStorage.clear();
+        $("#citiesBtn").css("display", "none");
     })
 
 });
