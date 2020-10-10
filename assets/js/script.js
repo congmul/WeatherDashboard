@@ -11,8 +11,6 @@ $(document).ready(function () {
     var countRemovingCities = 0;
     var checkNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     // localStorage.clear();
-    // console.log("localStorage.length + countRemovingCities : "+ (parseInt(localStorage.length)+countRemovingCities));
-    // console.log(countRemovingCities);
 
     if (localStorage.length > 0) {
         var localStorageArray = new Array();
@@ -20,12 +18,9 @@ $(document).ready(function () {
             localStorageArray[i] = localStorage.key(i) + localStorage.getItem(localStorage.key(i));
         }
         sortedArray = localStorageArray.sort();
-        console.log(sortedArray);
 
         for (let i = 0; i < sortedArray.length; i++) {
-            // console.log(sortedArray[i].slice(0, sortedArray[i].length - 1));
             if (sortedArray[i].slice(0, 9) === "lastClick") {
-                // console.log("lastClick");
                 citiesObjects["lastClick"] = sortedArray[i].slice(9, sortedArray[i].length);
             } else if (sortedArray[i].slice(0, 13) === "isCityRemoved") {
                 citiesObjects["isCityRemoved"] = sortedArray[i].slice(12, sortedArray[i].length);
@@ -33,26 +28,21 @@ $(document).ready(function () {
                 citiesObjects["countRemovingCities"] = sortedArray[i].slice(19, sortedArray[i].length);
             }
             else {
-                console.log(sortedArray[i][0]);
-                console.log("checkNum : " + checkNum.indexOf(sortedArray[i][1]));
                 if(checkNum.indexOf(sortedArray[i][1]) > -1){
                     citiesObjects[sortedArray[i].slice(0,2)] = sortedArray[i].slice(2, sortedArray[i].length);
                 }else{
                     citiesObjects[sortedArray[i][0]] = sortedArray[i].slice(1, sortedArray[i].length);
                 }
-                // console.log("sortedArray[i][0] : " + typeof sortedArray[i][0]);
-                
-               
             }
         }
 
-        console.log("citiesObjects " + JSON.stringify(citiesObjects));
+        // console.log("citiesObjects " + JSON.stringify(citiesObjects));
     }
 
     for (keys in citiesObjects) {
-        console.log("keys: " + keys);
+        // console.log("keys: " + keys);
         let value = citiesObjects[keys];
-        console.log("value of Objects: " + value);
+        // console.log("value of Objects: " + value);
         if (keys === "lastClick") {
             indexLastClick = value;
         } else if (keys === "isCityRemoved") {
@@ -60,7 +50,7 @@ $(document).ready(function () {
         } else if(keys === "countRemovingCities"){
             countRemovingCities = value;
         }else {
-            console.log("Else: " + value)
+            // console.log("Else: " + value)
             cities.push(value);
             // cities.splice(keys - 1, 0, value);
         }
@@ -83,7 +73,6 @@ $(document).ready(function () {
     // }
 
     console.log("initial cities : " + cities);
-    console.log("testtest : "+ (parseInt(localStorage.length) + countRemovingCities));
     // Initial implement
     if (cities.length === 0) {
         // alert("Enter a city where you want to know weather");
@@ -104,6 +93,15 @@ $(document).ready(function () {
                 cityNameReset += cityName[i].toLowerCase();
             }
         }
+
+        // Check cities repeated
+        if(cities.indexOf(cityNameReset) > -1){
+            console.log("Repeated City!!")
+            alert("You alread have " + cityNameReset + " button");
+            return;
+        }
+
+
         indexLastClick = cities.length;
         
 
@@ -120,7 +118,6 @@ $(document).ready(function () {
             localStorage.setItem("lastClick", indexLastClick);
             localStorage.setItem("isCityRemoved", "false");
             localStorage.setItem((parseInt(localStorage.length) + parseInt(countRemovingCities)), cityNameReset);
-            console.log("isCityRemoved: true");
         }
         // else{
         //     localStorage.setItem("lastClick", indexLastClick);
