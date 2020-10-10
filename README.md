@@ -16,4 +16,4 @@ Notice
 1. This app doesn't allow the repeated city to add button.
 2. When you remove a button, the weather of the city added first will be displayed when the page refresh.
 
-<<img src = "./assets/WeatherDashboard.gif" width = "800">
+<img src = "./assets/gif/WeatherDashboard.gif" width = "800">
