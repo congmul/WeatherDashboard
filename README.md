@@ -5,8 +5,11 @@ This is Weather Dashboard. It will display Current weather and 5-day Forecast.
 LINK : https://congmul.github.io/WeatherDashboard/
 
 Tech/framework used:
-1. Bootstrap (CSS Framework)
-2. OpenWeather API
+1. HTML
+2. CSS
+3. Bootstrap (CSS Framework)
+4. JavaScript
+5. OpenWeather API
 
 How to work
 1. Enter a city name where you want to know the weather about
